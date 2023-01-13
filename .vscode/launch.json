@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "portfolio",
+            "name": "portfolionew",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "portfolio (profile mode)",
+            "name": "portfolionew (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "portfolio (release mode)",
+            "name": "portfolionew (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
