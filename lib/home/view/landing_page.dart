@@ -22,7 +22,7 @@ class LandingPageView extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ScrollingValueCubit(),
-        ),
+        )
       ],
       child: const LandingPage(),
     );
