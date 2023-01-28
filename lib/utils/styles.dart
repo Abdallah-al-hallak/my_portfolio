@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/utils/colors.dart';
 
-TextStyle generalTextStyle([dynamic size, color]) {
+TextStyle generalTextStyle([double? size = 0.0, color]) {
   return TextStyle(
     color: color ?? AppColors.snow,
     fontSize: 20,
-  ).copyWith(fontSize: size);
+  ).copyWith(fontSize: double.parse(size.toString()));
 }
 
-TextStyle generalTextStyleWithOnyx([dynamic size, color, spacing]) {
+TextStyle generalTextStyleWithOnyx([double? size, color, spacing]) {
   return TextStyle(
     color: color ?? AppColors.snow,
     fontSize: 20,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/home/view/landing_page.dart';
 import 'package:portfolio/utils/styles.dart';
 
@@ -12,12 +13,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }
@@ -35,32 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.9),
-      appBar: AppBar(
-        backgroundColor: Colors.black.withOpacity(0.9),
-        title: Row(children: [
-          const SizedBox(width: 200.0, height: 0.0),
-          GestureDetector(
-            onTap: () {
-              print('go to home widget');
-            },
-            child: Text(
-              'Home',
-              style: generalTextStyle(),
-            ),
-          ),
-          const SizedBox(width: 30.0, height: 0.0),
-          GestureDetector(
-            onTap: () {
-              print('go to about me widget');
-            },
-            child: Text(
-              'About me',
-              style: generalTextStyle(),
-            ),
-          ),
-          const SizedBox(width: 30.0, height: 0.0),
-        ]),
-      ),
       body: const LandingPageView(),
     );
   }

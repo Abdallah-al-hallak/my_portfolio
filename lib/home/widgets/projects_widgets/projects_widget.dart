@@ -69,8 +69,9 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size;
-    return SizedBox(
-      height: height.height - 50,
+    return Container(
+      color: AppColors.dark,
+      height: height.height,
       child: Row(
         children: [
           // 1️⃣ the projects wheel view
@@ -88,7 +89,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                         child: Text(
                           'Projects I worked on',
                           textAlign: TextAlign.center,
-                          style: generalTextStyleWithOnyx(75),
+                          style: generalTextStyleWithOnyx(75.0),
                         ),
                       ),
                     ),
@@ -264,7 +265,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                       children: [
                         Text(
                           state.proojectsModel?.projectName ?? '',
-                          style: generalTextStyleWithOnyx(70),
+                          style: generalTextStyleWithOnyx(70.0),
                         ),
                         Container(
                           constraints: const BoxConstraints(

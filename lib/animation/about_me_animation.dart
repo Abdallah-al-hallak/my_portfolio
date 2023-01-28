@@ -84,7 +84,7 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
                 child: Text(
                   'ABOUT ME',
                   textAlign: TextAlign.start,
-                  style: generalTextStyleWithOnyx(110, Colors.black),
+                  style: generalTextStyleWithOnyx(110.0, Colors.black),
                 ),
               ),
               const SizedBox(
@@ -102,7 +102,6 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
             ],
           ),
           builder: (context, child) {
-            print('mm');
             return Transform.translate(
               offset: Offset(0, textOffset.value),
               child: Opacity(opacity: textOpacity.value, child: child),

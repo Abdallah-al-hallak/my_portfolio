@@ -1,4 +1,6 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
 import 'package:portfolio/animation/skills_animation_code.dart';
 import 'package:portfolio/utils/colors.dart';
 import 'package:portfolio/utils/styles.dart';
@@ -24,7 +26,7 @@ class _SkillsWidgetState extends State<SkillsWidget> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size;
     return Container(
-      color: Colors.black,
+      color: AppColors.dark,
       height: height.height,
       child: Row(
         children: [
@@ -35,18 +37,24 @@ class _SkillsWidgetState extends State<SkillsWidget> {
                 children: [
                   AnimatedBuilder(
                       animation: widget.controller2,
+                      child: const SkillsWidgetCirclesScaled(),
                       builder: (context, child) {
                         return Container(
-                          alignment: Alignment.center,
-                          constraints: const BoxConstraints(
-                            maxWidth: 275,
-                          ),
-                          child: Text(
-                            'What Skills Do I Have ?',
-                            style: generalTextStyleWithOnyx(
-                                80, widget.code.textColor.value),
-                          ),
-                        );
+                            alignment: Alignment.center,
+                            constraints: const BoxConstraints(
+                              maxWidth: 275,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'What Skills Do I Have ?',
+                                  textAlign: TextAlign.center,
+                                  style: generalTextStyleWithOnyx(
+                                      80.0, widget.code.textColor.value),
+                                ),
+                                child!,
+                              ],
+                            ));
                       }),
                 ],
               )),
@@ -64,6 +72,7 @@ class _SkillsWidgetState extends State<SkillsWidget> {
                       width: widget.code.whiteContainer.value,
                       height: widget.code.whiteContainer.value,
                       decoration: BoxDecoration(
+                        color: AppColors.dark,
                         boxShadow: const [
                           BoxShadow(
                             blurRadius: 40,
@@ -100,6 +109,11 @@ class _SkillsWidgetState extends State<SkillsWidget> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      width: 800,
+                      height: 800,
+                      child: Image.asset('assets/imgs/abdul.png'),
+                    ),
                   ],
                 );
               },
@@ -109,4 +123,139 @@ class _SkillsWidgetState extends State<SkillsWidget> {
       ),
     );
   }
+}
+
+class SkillsCircleWrapper extends StatefulWidget {
+  final double intervalStart;
+  final Widget child;
+  const SkillsCircleWrapper(
+      {super.key, required this.intervalStart, required this.child});
+
+  @override
+  State<SkillsCircleWrapper> createState() => _SkillsCircleWrapperState();
+}
+
+class _SkillsCircleWrapperState extends State<SkillsCircleWrapper>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late final Animation<double> scaleTransistion;
+  late final Animation<double> fadeAnimation;
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 1000,
+      ),
+    );
+    Future.delayed(
+      const Duration(milliseconds: 300),
+      () => _animationController.forward(),
+    );
+    Curve intervalCurve = Interval(
+      widget.intervalStart,
+      1,
+      curve: Curves.easeInOutBack,
+    );
+    scaleTransistion = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: intervalCurve,
+      ),
+    );
+    fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: intervalCurve,
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      child: widget.child,
+      builder: (context, child) {
+        return ScaleTransition(
+          scale: scaleTransistion,
+          child: FadeTransition(
+            opacity: fadeAnimation,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class SkillsWidgetCirclesScaled extends StatelessWidget {
+  const SkillsWidgetCirclesScaled({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 300,
+      child: GridView.builder(
+        clipBehavior: Clip.hardEdge,
+        itemCount: SkillsCirclesData.list.length,
+        itemBuilder: (
+          context,
+          index,
+        ) {
+          var g = SkillsCirclesData.list[index];
+          return SkillsCircleWrapper(
+            intervalStart: index / 5,
+            child: Container(
+              width: 40,
+              height: 40,
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.snow,
+              ),
+              child: SizedBox(
+                width: 30,
+                child: Image.asset(
+                  g.skillPhoto,
+                  width: 30,
+                ),
+              ),
+            ),
+          );
+        },
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            childAspectRatio: 1.5),
+      ),
+    );
+  }
+}
+
+class SkillsCircleModel extends Equatable {
+  final String skillPhoto;
+  final String skillName;
+  const SkillsCircleModel({
+    required this.skillPhoto,
+    required this.skillName,
+  });
+
+  @override
+  List<Object?> get props => [skillName, skillPhoto];
+}
+
+class SkillsCirclesData {
+  static List<SkillsCircleModel> list = const [
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/django.png', skillName: 'django'),
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/docker.png', skillName: 'docker'),
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/flutter.png', skillName: 'flutter'),
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/nodejs.png', skillName: 'nodejs'),
+  ];
 }
