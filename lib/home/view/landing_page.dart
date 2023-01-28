@@ -55,9 +55,9 @@ class _LandingPageState extends State<LandingPage> {
         ),
         SliverList(
             delegate: SliverChildListDelegate([
-          // HomeWidget(scrollController: _scrollController),
-          // const AboutMeWidget(),
-          // const ProjectsWidget(),
+          HomeWidget(scrollController: _scrollController),
+          const AboutMeWidget(),
+          const ProjectsWidget(),
           const SkillsWidgetAnimation(),
         ]))
       ],
