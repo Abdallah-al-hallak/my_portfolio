@@ -118,13 +118,10 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                       child: ListWheelScrollView.useDelegate(
                         physics: const NeverScrollableScrollPhysics(),
                         itemExtent: itemHeight,
-                        clipBehavior: Clip.hardEdge,
-                        useMagnifier: false,
                         diameterRatio: 30,
-                        offAxisFraction: 15,
-                        perspective: 0.0008,
-                        magnification: 0.009,
                         overAndUnderCenterOpacity: 1,
+                        offAxisFraction: 0,
+                        scrollBehavior: const ScrollBehavior(),
                         controller: scrollController,
                         childDelegate: ListWheelChildBuilderDelegate(
                           childCount: ProjectsData().project.length,
@@ -136,20 +133,20 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                             double rotationAngleX = 0;
                             double scale = 0;
                             if (topContainrr == index * itemHeight) {
-                              rotationAngle = 0;
                               context.read<ProjectsDataBloc>().add(
                                     ProjectsDataEvent.started(
                                         proojectsModel: data),
                                   );
+                              rotationAngle = 0;
                               rotationAngleX = 0;
-                              scale = 1.1;
+                              scale = 1;
                             } else if (topContainrr < index * itemHeight) {
-                              rotationAngle = 0.11 + index / 100;
-                              rotationAngleX = -0.025;
+                              rotationAngle = -0.11 + index / 100;
+                              rotationAngleX = -0.035;
                               scale = 0.6;
                             } else if (topContainrr > index * itemHeight) {
-                              rotationAngle = -(0.11 + index / 100);
-                              rotationAngleX = 0.015;
+                              rotationAngle = (0.11 + index / 100);
+                              rotationAngleX = 0.025;
                               scale = 0.6;
                             }
 
@@ -163,21 +160,22 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                                   child: RotationTransition(
                                     turns: tranformZ,
                                     child: Container(
-                                      width: 800,
+                                      alignment: Alignment.topCenter,
+                                      width: 900,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 0, horizontal: 0),
                                       margin: EdgeInsets.only(
-                                        left: 35,
+                                        left: 200,
                                         right:
                                             topContainrr == index * itemHeight
                                                 ? 0
                                                 : 220,
                                       ),
-                                      alignment: Alignment.centerRight,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
                                         child: Image.asset(
-                                          data.photo,
+                                          data.photo2,
+                                          width: 450,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -201,34 +199,29 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                                       begin: 0,
                                       end: rotationAngle,
                                     ),
-                                    curve: Curves.ease,
+                                    curve: Curves.easeInOut,
                                     builder: (context, value, child) =>
                                         Transform(
                                             transform: Matrix4.identity()
-                                              ..setEntry(
-                                                  index ~/ 2,
-                                                  2 + (index ~/ 10).toInt(),
-                                                  0.2)
-                                              ..rotateZ(rotationAngle)
-                                              ..rotateX(rotationAngleX)
-                                              ..rotateY(-0.004),
+                                              ..rotateY(rotationAngle)
+                                              ..rotateX(rotationAngleX),
                                             child: child),
                                     child: Container(
-                                      width: 800,
+                                      width: 1000,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 0, horizontal: 0),
                                       margin: EdgeInsets.only(
-                                        left: 30,
+                                        left: 190,
                                         right:
                                             topContainrr == index * itemHeight
                                                 ? 0
                                                 : 220,
                                       ),
-                                      alignment: Alignment.centerRight,
+                                      alignment: Alignment.topCenter,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
                                         child: Image.asset(
-                                          data.photo,
+                                          data.photo1,
                                           fit: BoxFit.cover,
                                         ),
                                       ),

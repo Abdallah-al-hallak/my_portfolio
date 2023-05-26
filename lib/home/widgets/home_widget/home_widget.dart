@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio/utils/styles.dart';
-
+import 'dart:math';
 import '../../../utils/colors.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -61,7 +62,9 @@ class _HomeWidgetState extends State<HomeWidget>
                   child: Container(
                       width: 700,
                       alignment: Alignment.center,
-                      child: Image.asset('assets/imgs/abd.png')),
+                      child: Image.asset('assets/imgs/abd.png')
+                          .animate()
+                          .fade(duration: 700.milliseconds)),
                 ),
                 Container(
                   width: size.width / 2,
@@ -80,14 +83,13 @@ class _HomeWidgetState extends State<HomeWidget>
                   top: topPos.value,
                   right: rightPos.value,
                   child: Container(
-                    height: 110,
-                    width: 1000,
-                    alignment: Alignment.center,
-                    color: AppColors.yellow.withOpacity(0.09),
-                    child: Text('ABDALLAH',
-                        style: generalTextStyleWithOnyx(
-                            110.0, AppColors.yellow1, 10.0)),
-                  ),
+                      height: 110,
+                      width: 1000,
+                      alignment: Alignment.center,
+                      color: AppColors.yellow.withOpacity(0.09),
+                      child: Text('ABDALLAH',
+                          style: generalTextStyleWithOnyx(
+                              110.0, AppColors.yellow1, 10.0))),
                 ),
                 PositionedTransition(
                   rect: RelativeRectTween(

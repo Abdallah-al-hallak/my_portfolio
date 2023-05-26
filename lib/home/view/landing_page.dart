@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/animation/skills_widget_animation.dart';
 import 'package:portfolio/home/blocs/projects_data_bloc/bloc/projects_data_bloc.dart';
 import 'package:portfolio/home/blocs/scrolling_value/cubit/scrolling_value_cubit.dart';
 import 'package:portfolio/home/providers/selected_bar_providers.dart';
 import 'package:portfolio/home/widgets/projects_widgets/projects_widget.dart';
-import '../../animation/skills_widget_animation.dart';
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
 import '../widgets/about_me_widget/about_me_widget.dart';
+import '../widgets/contact_me_widget/contact_me_widget.dart';
 import '../widgets/home_widget/home_widget.dart';
 
 class LandingPageView extends StatelessWidget {
@@ -59,6 +60,7 @@ class _LandingPageState extends State<LandingPage> {
           const AboutMeWidget(),
           const ProjectsWidget(),
           const SkillsWidgetAnimation(),
+          const ContactMeWidget(),
         ]))
       ],
     );
@@ -92,6 +94,7 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
   @override
   Widget build(BuildContext context) {
     var selectedbar = ref.watch(selectedBarProvider);
+    var height = MediaQuery.of(context).size.height;
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
       SizedBox(
         width: 100,
@@ -133,7 +136,7 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
           },
           onPressed: () {
             ref.read(selectedBarProvider.notifier).state = SelectedBar.about;
-            widget.scrollController.animateTo(780,
+            widget.scrollController.animateTo(height,
                 duration: const Duration(seconds: 1), curve: Curves.ease);
           },
           child: Text(
@@ -162,7 +165,7 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
           },
           onPressed: () {
             ref.read(selectedBarProvider.notifier).state = SelectedBar.projects;
-            widget.scrollController.animateTo(1560,
+            widget.scrollController.animateTo(2 * height,
                 duration: const Duration(seconds: 1), curve: Curves.ease);
           },
           child: Text(
@@ -191,7 +194,7 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
           },
           onPressed: () {
             ref.read(selectedBarProvider.notifier).state = SelectedBar.skills;
-            widget.scrollController.animateTo(2340,
+            widget.scrollController.animateTo(3 * height,
                 duration: const Duration(seconds: 1), curve: Curves.ease);
           },
           child: Text(
@@ -220,7 +223,7 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
           },
           onPressed: () {
             ref.read(selectedBarProvider.notifier).state = SelectedBar.contact;
-            widget.scrollController.animateTo(3160,
+            widget.scrollController.animateTo(4 * height,
                 duration: const Duration(seconds: 1), curve: Curves.ease);
           },
           child: Text(

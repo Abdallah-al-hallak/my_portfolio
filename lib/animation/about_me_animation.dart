@@ -63,12 +63,12 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return SizeTransition(
       axis: Axis.horizontal,
       sizeFactor: containerSize,
       child: Container(
-        height: height.height - 200,
+        height: size.height - 200,
         color: AppColors.snow,
         alignment: Alignment.center,
         child: AnimatedBuilder(
@@ -93,10 +93,13 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Im a Flutter Developer Im Passionate About pixel Perfect',
-                  textAlign: TextAlign.start,
-                  style: generalTextStyle(22, Colors.black),
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: size.width / 2),
+                  child: Text(
+                    '''Hi, I'm Abdallah. 3 years experience in flutter development, driven by passion for pixel Perfect.Computer Science from Damascus University, with notable achievements in a lot of projects.Committed to personal and professional growth, always seeking new challenges. ''',
+                    textAlign: TextAlign.start,
+                    style: generalTextStyle(22, Colors.black),
+                  ),
                 ),
               ),
             ],
