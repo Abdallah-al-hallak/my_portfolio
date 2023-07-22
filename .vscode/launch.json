@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "abdallahHallak",
+            "name": "abdallahhallak",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "abdallahHallak (profile mode)",
+            "name": "abdallahhallak (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "abdallahHallak (release mode)",
+            "name": "abdallahhallak (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
