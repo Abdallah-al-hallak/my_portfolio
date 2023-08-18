@@ -161,7 +161,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                                     turns: tranformZ,
                                     child: Container(
                                       alignment: Alignment.topCenter,
-                                      width: 900,
+                                      width: 1000,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 0, horizontal: 0),
                                       margin: EdgeInsets.only(
@@ -175,7 +175,6 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                                         borderRadius: BorderRadius.circular(20),
                                         child: Image.asset(
                                           data.photo2,
-                                          width: 450,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -207,17 +206,16 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                                               ..rotateX(rotationAngleX),
                                             child: child),
                                     child: Container(
-                                      width: 1000,
+                                      alignment: Alignment.topCenter,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 0, horizontal: 0),
                                       margin: EdgeInsets.only(
-                                        left: 190,
+                                        left: 200,
                                         right:
                                             topContainrr == index * itemHeight
                                                 ? 0
                                                 : 220,
                                       ),
-                                      alignment: Alignment.topCenter,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
                                         child: Image.asset(

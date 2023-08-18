@@ -8,13 +8,12 @@ class AboutMeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('I build 2');
     var height = MediaQuery.of(context).size;
     return Container(
       height: height.height,
       color: AppColors.dark,
-      child: Column(
-        children: const [
+      child: const Column(
+        children: [
           AboutMeAnimation(),
         ],
       ),
