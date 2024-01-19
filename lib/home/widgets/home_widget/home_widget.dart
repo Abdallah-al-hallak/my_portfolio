@@ -89,13 +89,13 @@ class _HomeWidgetState extends State<HomeWidget>
                     top: topPos.value,
                     right: rightPos.value,
                     child: Container(
-                        height: size.height / 6,
+                        height: size.height / 5.5,
                         width: size.width / 1.3,
                         alignment: Alignment.center,
                         color: AppColors.yellow.withOpacity(0.09),
                         child: Text('ABDALLAH',
                             style: generalTextStyleWithOnyx(
-                                size.width / 13, AppColors.yellow1, 10.0))),
+                                size.width / 15, AppColors.yellow1, 10.0))),
                   ),
                   PositionedTransition(
                     rect: RelativeRectTween(
@@ -110,7 +110,7 @@ class _HomeWidgetState extends State<HomeWidget>
                     // right: size.width / 3.5,
                     child: Text('AL HALLAK',
                         style: generalTextStyleWithOnyx(
-                            size.width / 13, null, 10.0)),
+                            size.width / 15, null, 10.0)),
                   ),
                 ],
               ),
