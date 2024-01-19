@@ -23,6 +23,13 @@ class _SkillsWidgetState extends State<SkillsWidget> {
   }
 
   @override
+  void dispose() {
+    widget.controller.dispose();
+    widget.controller2.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size;
     return Container(

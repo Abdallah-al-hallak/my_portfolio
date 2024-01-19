@@ -63,7 +63,7 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    Size size = MediaQuery.sizeOf(context);
     return SizeTransition(
       axis: Axis.horizontal,
       sizeFactor: containerSize,

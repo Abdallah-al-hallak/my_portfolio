@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio/utils/styles.dart';
-import 'dart:math';
 import '../../../utils/colors.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -34,6 +33,7 @@ class _HomeWidgetState extends State<HomeWidget>
     );
     widget.scrollController.addListener(() {
       var t = widget.scrollController.position.maxScrollExtent / 12;
+      if (!mounted) return;
       if (widget.scrollController.offset >= t) {
         _animationController.reverse();
       } else {
@@ -44,70 +44,78 @@ class _HomeWidgetState extends State<HomeWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('I build 1');
-    var size = MediaQuery.of(context).size;
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
-    return AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) {
-          return Container(
-            height: size.height,
-            color: AppColors.dark,
-            child: Stack(
-              alignment: Alignment.centerRight,
-              children: [
-                Positioned(
-                  left: 170,
-                  child: Container(
-                      width: 700,
-                      alignment: Alignment.center,
-                      child: Image.asset('assets/imgs/abd.png')
-                          .animate()
-                          .fade(duration: 700.milliseconds)),
-                ),
-                Container(
-                  width: size.width / 2,
-                  decoration: const BoxDecoration(
-                    color: AppColors.dark,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 20,
-                        spreadRadius: 20,
-                        color: AppColors.dark,
-                      ),
-                    ],
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.sizeOf(context);
+
+    return LayoutBuilder(builder: (context, constraints) {
+      return AnimatedBuilder(
+          animation: _animationController,
+          builder: (context, child) {
+            return Container(
+              height: size.height,
+              color: AppColors.dark,
+              child: Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  Positioned(
+                    left: size.width / 8.5,
+                    child: Container(
+                        width: size.width / 2,
+                        alignment: Alignment.center,
+                        child: Image.asset('assets/imgs/abd.png')
+                            .animate()
+                            .fade(duration: 700.milliseconds)),
                   ),
-                ),
-                Positioned(
-                  top: topPos.value,
-                  right: rightPos.value,
-                  child: Container(
-                      height: 110,
-                      width: 1000,
-                      alignment: Alignment.center,
-                      color: AppColors.yellow.withOpacity(0.09),
-                      child: Text('ABDALLAH',
-                          style: generalTextStyleWithOnyx(
-                              110.0, AppColors.yellow1, 10.0))),
-                ),
-                PositionedTransition(
-                  rect: RelativeRectTween(
-                    begin: const RelativeRect.fromLTRB(-100, -30, 0, 0),
-                    end: RelativeRect.fromLTRB(
-                        size.width / 2, size.height / 2.1, 0, 0),
-                  ).animate(CurvedAnimation(
-                    parent: _animationController,
-                    curve: Curves.fastLinearToSlowEaseIn,
-                  )),
-                  // top: size.height / 2.2,
-                  // right: size.width / 3.5,
-                  child: Text('AL HALLAK',
-                      style: generalTextStyleWithOnyx(110.0, null, 10.0)),
-                ),
-              ],
-            ),
-          );
-        });
+                  Container(
+                    width: size.width / 2,
+                    decoration: const BoxDecoration(
+                      color: AppColors.dark,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 20,
+                          spreadRadius: 20,
+                          color: AppColors.dark,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: topPos.value,
+                    right: rightPos.value,
+                    child: Container(
+                        height: size.height / 6,
+                        width: size.width / 1.3,
+                        alignment: Alignment.center,
+                        color: AppColors.yellow.withOpacity(0.09),
+                        child: Text('ABDALLAH',
+                            style: generalTextStyleWithOnyx(
+                                size.width / 13, AppColors.yellow1, 10.0))),
+                  ),
+                  PositionedTransition(
+                    rect: RelativeRectTween(
+                      begin: const RelativeRect.fromLTRB(-100, -30, 0, 0),
+                      end: RelativeRect.fromLTRB(
+                          size.width / 2, size.height / 2.1, 0, 0),
+                    ).animate(CurvedAnimation(
+                      parent: _animationController,
+                      curve: Curves.fastLinearToSlowEaseIn,
+                    )),
+                    // top: size.height / 2.2,
+                    // right: size.width / 3.5,
+                    child: Text('AL HALLAK',
+                        style: generalTextStyleWithOnyx(
+                            size.width / 13, null, 10.0)),
+                  ),
+                ],
+              ),
+            );
+          });
+    });
   }
 }

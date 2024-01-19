@@ -11,7 +11,7 @@ class ContactMeWidget extends StatefulWidget {
 class _ContactMeWidgetState extends State<ContactMeWidget> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery.sizeOf(context);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return SizedBox(
@@ -90,9 +90,9 @@ class ContactRow extends StatefulWidget {
 
 class _ContactRowState extends State<ContactRow> {
   Future<void> _launchUrl() async {
-    final Uri _url = Uri.parse('https://${widget.desc}');
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+    final Uri url = Uri.parse('https://${widget.desc}');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
     }
   }
 

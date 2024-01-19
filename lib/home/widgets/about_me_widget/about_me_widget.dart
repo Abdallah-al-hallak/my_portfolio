@@ -8,9 +8,9 @@ class AboutMeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size;
+    Size size = MediaQuery.sizeOf(context);
     return Container(
-      height: height.height,
+      height: size.height,
       color: AppColors.dark,
       child: const Column(
         children: [
