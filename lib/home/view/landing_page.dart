@@ -68,7 +68,9 @@ class _LandingPageState extends State<LandingPage> {
               elevation: 0,
               actions: [
                 if (constraint.maxWidth > 550)
-                  PinnedAppBar(scrollController: _scrollController),
+                  SizedBox(
+                      width: constraint.maxWidth,
+                      child: PinnedAppBar(scrollController: _scrollController)),
                 // if (constraint.maxWidth < 550)
               ],
             ),
@@ -119,8 +121,7 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: size.width / 10,
+          Expanded(
             child: TextButton(
               onHover: (value) {
                 setState(() {
@@ -136,19 +137,16 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
               child: Text(
                 'Home',
                 style: isHomeHoverd
-                    ? TextStyle(
-                        color: Colors.yellow, fontSize: size.width * 0.015)
+                    ? TextStyle(color: Colors.yellow, fontSize: 9.5.r)
                     : generalTextStyle(
-                        size.width * 0.012,
+                        9.r,
                         selectedbar == SelectedBar.home
                             ? AppColors.yellow
                             : Colors.white),
               ),
             ),
           ),
-          SizedBox(width: size.width / 80, height: 0.0),
-          SizedBox(
-            width: size.width / 11,
+          Expanded(
             child: TextButton(
               onHover: (value) {
                 setState(() {
@@ -166,19 +164,17 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
                 style: isAboutHoverd
                     ? TextStyle(
                         color: Colors.yellow,
-                        fontSize: size.width * 0.015,
+                        fontSize: 9.5.r,
                       )
                     : generalTextStyle(
-                        size.width * 0.012,
+                        9.r,
                         selectedbar == SelectedBar.about
                             ? AppColors.yellow
                             : Colors.white),
               ),
             ),
           ),
-          SizedBox(width: size.width / 80, height: 0.0),
-          SizedBox(
-            width: size.width / 11,
+          Expanded(
             child: TextButton(
               onHover: (value) {
                 setState(() {
@@ -196,19 +192,17 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
                 style: isProjectsHoverd
                     ? TextStyle(
                         color: Colors.yellow,
-                        fontSize: size.width * 0.015,
+                        fontSize: 9.5.r,
                       )
                     : generalTextStyle(
-                        size.width * 0.012,
+                        9.r,
                         selectedbar == SelectedBar.projects
                             ? AppColors.yellow
                             : Colors.white),
               ),
             ),
           ),
-          SizedBox(width: size.width / 80, height: 0.0),
-          SizedBox(
-            width: size.width / 11,
+          Expanded(
             child: TextButton(
               onHover: (value) {
                 setState(() {
@@ -226,19 +220,17 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
                 style: isSkillsHoverd
                     ? TextStyle(
                         color: Colors.yellow,
-                        fontSize: size.width * 0.015,
+                        fontSize: 9.5.r,
                       )
                     : generalTextStyle(
-                        8.sp,
+                        9.r,
                         selectedbar == SelectedBar.skills
                             ? AppColors.yellow
                             : Colors.white),
               ),
             ),
           ),
-          SizedBox(width: size.width / 80, height: 0.0),
-          SizedBox(
-            width: size.width / 10.5,
+          Expanded(
             child: TextButton(
               onHover: (value) {
                 setState(() {
@@ -254,17 +246,15 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
               child: Text(
                 'Contact Me',
                 style: isContactHoverd
-                    ? TextStyle(
-                        color: Colors.yellow, fontSize: size.width * 0.015)
+                    ? TextStyle(color: Colors.yellow, fontSize: 9.5.r)
                     : generalTextStyle(
-                        size.width * 0.011,
+                        9.r,
                         selectedbar == SelectedBar.contact
                             ? AppColors.yellow
                             : Colors.white),
               ),
             ),
           ),
-          SizedBox(width: size.width / 18, height: 0.0),
         ]);
   }
 }
@@ -286,7 +276,7 @@ class SmallAppBar extends StatelessWidget {
     return Center(
       child: Container(
         alignment: Alignment.center,
-        width: size.width * 0.7,
+        width: size.width * 0.85,
         decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.4),
             borderRadius: BorderRadius.circular(12)),
