@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/animation/skills_widget_animation.dart';
 import 'package:portfolio/home/blocs/projects_data_bloc/bloc/projects_data_bloc.dart';
 import 'package:portfolio/home/blocs/scrolling_value/cubit/scrolling_value_cubit.dart';
@@ -45,20 +46,30 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
       return Scaffold(
-        drawer: constraint.maxWidth < 550 ? Drawer() : null,
-        backgroundColor: Colors.black.withOpacity(0.9),
+        // drawer: constraint.maxWidth < 550 ? DrawerWidget() : null,
+        backgroundColor: constraint.maxWidth < 550
+            ? AppColors.dark
+            : Colors.black.withOpacity(0.9),
         body: CustomScrollView(
           controller: _scrollController,
           cacheExtent: 0,
           slivers: [
             SliverAppBar(
-              backgroundColor: AppColors.dark.withOpacity(0.5),
-              titleSpacing: 100,
+              centerTitle: true,
+              title: constraint.maxWidth < 550
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: SmallAppBar(scrollController: _scrollController))
+                  : null,
+              backgroundColor: constraint.maxWidth < 550
+                  ? AppColors.dark.withOpacity(0)
+                  : AppColors.dark.withOpacity(0.6),
               pinned: true,
               elevation: 0,
               actions: [
                 if (constraint.maxWidth > 550)
                   PinnedAppBar(scrollController: _scrollController),
+                // if (constraint.maxWidth < 550)
               ],
             ),
             SliverList(
@@ -104,148 +115,157 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
   Widget build(BuildContext context) {
     var selectedbar = ref.watch(selectedBarProvider);
     Size size = MediaQuery.sizeOf(context);
-    return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      SizedBox(
-        width: size.width / 10,
-        child: TextButton(
-          onHover: (value) {
-            setState(() {
-              isHomeHoverd = !isHomeHoverd;
-            });
-          },
-          onPressed: () {
-            ref.read(selectedBarProvider.notifier).state = SelectedBar.home;
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: size.width / 10,
+            child: TextButton(
+              onHover: (value) {
+                setState(() {
+                  isHomeHoverd = !isHomeHoverd;
+                });
+              },
+              onPressed: () {
+                ref.read(selectedBarProvider.notifier).state = SelectedBar.home;
 
-            widget.scrollController.animateTo(0,
-                duration: const Duration(seconds: 1), curve: Curves.ease);
-          },
-          child: Text(
-            'Home',
-            style: isHomeHoverd
-                ? TextStyle(color: Colors.yellow, fontSize: size.width * 0.015)
-                : generalTextStyle(
-                    size.width * 0.012,
-                    selectedbar == SelectedBar.home
-                        ? AppColors.yellow
-                        : Colors.white),
+                widget.scrollController.animateTo(0,
+                    duration: const Duration(seconds: 1), curve: Curves.ease);
+              },
+              child: Text(
+                'Home',
+                style: isHomeHoverd
+                    ? TextStyle(
+                        color: Colors.yellow, fontSize: size.width * 0.015)
+                    : generalTextStyle(
+                        size.width * 0.012,
+                        selectedbar == SelectedBar.home
+                            ? AppColors.yellow
+                            : Colors.white),
+              ),
+            ),
           ),
-        ),
-      ),
-      SizedBox(width: size.width / 80, height: 0.0),
-      SizedBox(
-        width: size.width / 11,
-        child: TextButton(
-          onHover: (value) {
-            setState(() {
-              isAboutHoverd = !isAboutHoverd;
-            });
-          },
-          onPressed: () {
-            ref.read(selectedBarProvider.notifier).state = SelectedBar.about;
-            widget.scrollController.animateTo(size.height,
-                duration: const Duration(seconds: 1), curve: Curves.ease);
-          },
-          child: Text(
-            'About me',
-            style: isAboutHoverd
-                ? TextStyle(
-                    color: Colors.yellow,
-                    fontSize: size.width * 0.015,
-                  )
-                : generalTextStyle(
-                    size.width * 0.012,
-                    selectedbar == SelectedBar.about
-                        ? AppColors.yellow
-                        : Colors.white),
+          SizedBox(width: size.width / 80, height: 0.0),
+          SizedBox(
+            width: size.width / 11,
+            child: TextButton(
+              onHover: (value) {
+                setState(() {
+                  isAboutHoverd = !isAboutHoverd;
+                });
+              },
+              onPressed: () {
+                ref.read(selectedBarProvider.notifier).state =
+                    SelectedBar.about;
+                widget.scrollController.animateTo(size.height,
+                    duration: const Duration(seconds: 1), curve: Curves.ease);
+              },
+              child: Text(
+                'About me',
+                style: isAboutHoverd
+                    ? TextStyle(
+                        color: Colors.yellow,
+                        fontSize: size.width * 0.015,
+                      )
+                    : generalTextStyle(
+                        size.width * 0.012,
+                        selectedbar == SelectedBar.about
+                            ? AppColors.yellow
+                            : Colors.white),
+              ),
+            ),
           ),
-        ),
-      ),
-      SizedBox(width: size.width / 80, height: 0.0),
-      SizedBox(
-        width: size.width / 11,
-        child: TextButton(
-          onHover: (value) {
-            setState(() {
-              isProjectsHoverd = !isProjectsHoverd;
-            });
-          },
-          onPressed: () {
-            ref.read(selectedBarProvider.notifier).state = SelectedBar.projects;
-            widget.scrollController.animateTo(2 * size.height,
-                duration: const Duration(seconds: 1), curve: Curves.ease);
-          },
-          child: Text(
-            'Projects',
-            style: isProjectsHoverd
-                ? TextStyle(
-                    color: Colors.yellow,
-                    fontSize: size.width * 0.015,
-                  )
-                : generalTextStyle(
-                    size.width * 0.012,
-                    selectedbar == SelectedBar.projects
-                        ? AppColors.yellow
-                        : Colors.white),
+          SizedBox(width: size.width / 80, height: 0.0),
+          SizedBox(
+            width: size.width / 11,
+            child: TextButton(
+              onHover: (value) {
+                setState(() {
+                  isProjectsHoverd = !isProjectsHoverd;
+                });
+              },
+              onPressed: () {
+                ref.read(selectedBarProvider.notifier).state =
+                    SelectedBar.projects;
+                widget.scrollController.animateTo(2 * size.height,
+                    duration: const Duration(seconds: 1), curve: Curves.ease);
+              },
+              child: Text(
+                'Projects',
+                style: isProjectsHoverd
+                    ? TextStyle(
+                        color: Colors.yellow,
+                        fontSize: size.width * 0.015,
+                      )
+                    : generalTextStyle(
+                        size.width * 0.012,
+                        selectedbar == SelectedBar.projects
+                            ? AppColors.yellow
+                            : Colors.white),
+              ),
+            ),
           ),
-        ),
-      ),
-      SizedBox(width: size.width / 80, height: 0.0),
-      SizedBox(
-        width: size.width / 11,
-        child: TextButton(
-          onHover: (value) {
-            setState(() {
-              isSkillsHoverd = !isSkillsHoverd;
-            });
-          },
-          onPressed: () {
-            ref.read(selectedBarProvider.notifier).state = SelectedBar.skills;
-            widget.scrollController.animateTo(3 * size.height,
-                duration: const Duration(seconds: 1), curve: Curves.ease);
-          },
-          child: Text(
-            'Skills',
-            style: isSkillsHoverd
-                ? TextStyle(
-                    color: Colors.yellow,
-                    fontSize: size.width * 0.015,
-                  )
-                : generalTextStyle(
-                    size.width * 0.012,
-                    selectedbar == SelectedBar.skills
-                        ? AppColors.yellow
-                        : Colors.white),
+          SizedBox(width: size.width / 80, height: 0.0),
+          SizedBox(
+            width: size.width / 11,
+            child: TextButton(
+              onHover: (value) {
+                setState(() {
+                  isSkillsHoverd = !isSkillsHoverd;
+                });
+              },
+              onPressed: () {
+                ref.read(selectedBarProvider.notifier).state =
+                    SelectedBar.skills;
+                widget.scrollController.animateTo(3 * size.height,
+                    duration: const Duration(seconds: 1), curve: Curves.ease);
+              },
+              child: Text(
+                'Skills',
+                style: isSkillsHoverd
+                    ? TextStyle(
+                        color: Colors.yellow,
+                        fontSize: size.width * 0.015,
+                      )
+                    : generalTextStyle(
+                        8.sp,
+                        selectedbar == SelectedBar.skills
+                            ? AppColors.yellow
+                            : Colors.white),
+              ),
+            ),
           ),
-        ),
-      ),
-      SizedBox(width: size.width / 80, height: 0.0),
-      SizedBox(
-        width: size.width / 11,
-        child: TextButton(
-          onHover: (value) {
-            setState(() {
-              isContactHoverd = !isContactHoverd;
-            });
-          },
-          onPressed: () {
-            ref.read(selectedBarProvider.notifier).state = SelectedBar.contact;
-            widget.scrollController.animateTo(4 * size.height,
-                duration: const Duration(seconds: 1), curve: Curves.ease);
-          },
-          child: Text(
-            'Contact Me',
-            style: isContactHoverd
-                ? TextStyle(color: Colors.yellow, fontSize: size.width * 0.015)
-                : generalTextStyle(
-                    size.width * 0.012,
-                    selectedbar == SelectedBar.contact
-                        ? AppColors.yellow
-                        : Colors.white),
+          SizedBox(width: size.width / 80, height: 0.0),
+          SizedBox(
+            width: size.width / 10.5,
+            child: TextButton(
+              onHover: (value) {
+                setState(() {
+                  isContactHoverd = !isContactHoverd;
+                });
+              },
+              onPressed: () {
+                ref.read(selectedBarProvider.notifier).state =
+                    SelectedBar.contact;
+                widget.scrollController.animateTo(4 * size.height,
+                    duration: const Duration(seconds: 1), curve: Curves.ease);
+              },
+              child: Text(
+                'Contact Me',
+                style: isContactHoverd
+                    ? TextStyle(
+                        color: Colors.yellow, fontSize: size.width * 0.015)
+                    : generalTextStyle(
+                        size.width * 0.011,
+                        selectedbar == SelectedBar.contact
+                            ? AppColors.yellow
+                            : Colors.white),
+              ),
+            ),
           ),
-        ),
-      ),
-      SizedBox(width: size.width / 18, height: 0.0),
-    ]);
+          SizedBox(width: size.width / 18, height: 0.0),
+        ]);
   }
 }
 
@@ -255,4 +275,23 @@ enum SelectedBar {
   projects,
   skills,
   contact,
+}
+
+class SmallAppBar extends StatelessWidget {
+  const SmallAppBar({super.key, required this.scrollController});
+  final ScrollController scrollController;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
+    return Center(
+      child: Container(
+        alignment: Alignment.center,
+        width: size.width * 0.7,
+        decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.4),
+            borderRadius: BorderRadius.circular(12)),
+        child: PinnedAppBar(scrollController: scrollController),
+      ),
+    );
+  }
 }

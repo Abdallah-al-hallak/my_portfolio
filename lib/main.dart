@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/home/view/landing_page.dart';
 
-void main() {
+void main() async {
+  await ScreenUtil.ensureScreenSize();
   runApp(
     const MyApp(),
   );
@@ -16,12 +18,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
+        builder: (ctx, child) {
+          ScreenUtil.init(ctx);
+          return const LandingPageView();
+        },
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const LandingPageView(),
       ),
     );
   }

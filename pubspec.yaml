@@ -47,6 +47,7 @@ dependencies:
 
   url_launcher: ^6.1.11
   flutter_svg: ^2.0.9
+  flutter_screenutil: ^5.9.0
 
   flutter_animate: ^3.1.0
 
