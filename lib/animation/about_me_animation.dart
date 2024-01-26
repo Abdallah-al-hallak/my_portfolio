@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/colors.dart';
 import '../utils/styles.dart';
@@ -68,6 +69,7 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
       axis: Axis.horizontal,
       sizeFactor: containerSize,
       child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8.r),
         height: size.height - 200,
         color: AppColors.snow,
         alignment: Alignment.center,
@@ -78,27 +80,31 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 200,
+                constraints: BoxConstraints(
+                  maxWidth: size.width / 2.5,
                 ),
                 child: Text(
                   'ABOUT ME',
-                  textAlign: TextAlign.start,
-                  style: generalTextStyleWithOnyx(110.0, Colors.black),
+                  textAlign: TextAlign.center,
+                  style: generalTextStyleWithOnyx(85.r, Colors.black),
                 ),
               ),
-              const SizedBox(
-                width: 35.0,
+              SizedBox(
+                width: 35.0.r,
                 height: 0.0,
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  constraints: BoxConstraints(maxWidth: size.width / 2),
-                  child: Text(
-                    '''Hi, I'm Abdallah. 3 years experience in flutter development, driven by passion for pixel Perfect.Computer Science from Damascus University, with notable achievements in a lot of projects.Committed to personal and professional growth, always seeking new challenges. ''',
-                    textAlign: TextAlign.start,
-                    style: generalTextStyle(22, Colors.black),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0.r),
+                  child: Container(
+                    constraints: BoxConstraints(maxWidth: size.width / 1.5),
+                    child: SingleChildScrollView(
+                      child: Text(
+                        '''Hi, I'm Abdallah. 3 years experience in flutter development, driven by passion for pixel Perfect.Computer Science from Damascus University, with notable achievements in a lot of projects.Committed to personal and professional growth, always seeking new challenges. ''',
+                        textAlign: TextAlign.start,
+                        style: generalTextStyle(16.r, Colors.black),
+                      ),
+                    ),
                   ),
                 ),
               ),

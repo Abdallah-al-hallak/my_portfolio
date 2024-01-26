@@ -27,16 +27,9 @@ class _ProjectsCompleteViewState extends State<ProjectsCompleteView> {
       height: size.height,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          if (constraints.maxWidth < 600) {
-            return Text('mobile');
-          }
-          if (constraints.maxWidth > 600) {
-            return DesktopProjectsWidget(
-              constraints: constraints,
-            );
-          } else {
-            return SizedBox();
-          }
+          return DesktopProjectsWidget(
+            constraints: constraints,
+          );
         },
       ),
     );

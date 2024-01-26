@@ -276,7 +276,7 @@ class SmallAppBar extends StatelessWidget {
     return Center(
       child: Container(
         alignment: Alignment.center,
-        width: size.width * 0.85,
+        width: size.width * 0.9,
         decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.4),
             borderRadius: BorderRadius.circular(12)),

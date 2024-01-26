@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/data/model/projects_model.dart';
 
 import '../../../data/project_data.dart';
+import '../../../utils/styles.dart';
 
 class DesktopProjectsWidget extends StatefulWidget {
   const DesktopProjectsWidget({super.key, required this.constraints});
@@ -26,30 +28,48 @@ class _DesktopProjectsWidgetState extends State<DesktopProjectsWidget> {
       width: widget.constraints.maxWidth,
       child: Column(
         children: [
-          const Align(
+          Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              'Projects I worked on',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: EdgeInsets.all(8.0.r),
+              child: Text(
+                'Projects I worked on',
+                style: generalTextStyleWithOnyx(40.r, Colors.white),
+              ),
             ),
           ),
           SizedBox(
             height: widget.constraints.maxHeight / 1.1,
             width: widget.constraints.maxWidth * .9,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4),
-              physics: const NeverScrollableScrollPhysics(),
+            child: RawScrollbar(
               controller: _pageController,
-              itemCount: ProjectsData().project.length,
-              itemBuilder: (context, index) {
-                ProjectsModel data = ProjectsData().project[index];
-                return ProjectCard(
-                  index: index,
-                  model: data,
-                  constraints: widget.constraints,
-                );
-              },
+              isAlwaysShown: true,
+              thumbColor: Colors.white,
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio:
+                        widget.constraints.maxWidth < 500 ? 1.3 : 0.8,
+                    crossAxisCount: widget.constraints.maxWidth < 500
+                        ? 1
+                        : widget.constraints.maxWidth < 750
+                            ? 2
+                            : widget.constraints.maxWidth < 1000
+                                ? 3
+                                : 4),
+                physics: widget.constraints.maxWidth < 1000
+                    ? const BouncingScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                itemCount: ProjectsData().project.length,
+                itemBuilder: (context, index) {
+                  ProjectsModel data = ProjectsData().project[index];
+                  return ProjectCard(
+                    index: index,
+                    model: data,
+                    constraints: widget.constraints,
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -77,11 +97,11 @@ class _ProjectCardState extends State<ProjectCard> {
     return Container(
       width: widget.constraints.maxWidth * .2,
       height: widget.constraints.maxHeight * .55,
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white.withOpacity(0.5)),
-          borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.all(5),
+          borderRadius: BorderRadius.circular(12.r)),
+      margin: EdgeInsets.all(5.r),
       child: Stack(
         children: [
           Column(
@@ -97,8 +117,8 @@ class _ProjectCardState extends State<ProjectCard> {
               // Title of project
               // TitleWidget(text: widget.model.projectName),
               // Discreption
-              const SizedBox(
-                height: 10.0,
+              SizedBox(
+                height: 10.0.r,
               ),
               DescriptionWidget(
                 text: widget.model.description,
@@ -134,8 +154,8 @@ class IconWidget extends StatelessWidget {
               if (model.googleLink.isNotEmpty) {}
             },
             child: SizedBox(
-              width: 30,
-              height: 30,
+              width: 30.r,
+              height: 30.r,
               child: SvgPicture.asset(model.photo2),
             ),
           ),
@@ -143,8 +163,8 @@ class IconWidget extends StatelessWidget {
           InkWell(
             onTap: () {},
             child: SizedBox(
-              width: 35,
-              height: 35,
+              width: 35.r,
+              height: 35.r,
               child: SvgPicture.asset(model.photo3),
             ),
           ),
@@ -163,7 +183,7 @@ class Coverwidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -200,7 +220,7 @@ class DescriptionWidget extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(color: Colors.white, fontSize: 15.r),
       ),
     );
   }
@@ -208,6 +228,7 @@ class DescriptionWidget extends StatelessWidget {
 
 TextStyle standardStyle() {
   return TextStyle(
+    fontSize: 14.r,
     color: Colors.white,
   );
 }

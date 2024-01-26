@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactMeWidget extends StatefulWidget {
@@ -16,7 +17,9 @@ class _ContactMeWidgetState extends State<ContactMeWidget> {
       builder: (BuildContext context, BoxConstraints constraints) {
         return SizedBox(
           height: size.height,
+          width: size.width,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // SizedBox(width: 0.0, height: 20.0),
               Stack(
@@ -28,40 +31,46 @@ class _ContactMeWidgetState extends State<ContactMeWidget> {
                     width: size.width,
                     height: size.height / 1.5,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const ContactRow(
-                        desc: ' 0934686413',
-                        img: 'assets/imgs/whats.png',
-                      ),
-                      const SizedBox(width: 0.0, height: 20.0),
-                      const ContactRow(
-                        isUrl: true,
-                        desc: 'linkedin.com/in/abdallah-al-hallak',
-                        img: 'assets/imgs/linkedin.png',
-                      ),
-                      const SizedBox(width: 0.0, height: 20.0),
-                      const ContactRow(
-                        desc: 'abdallahalhallak1@gmail.com',
-                        img: 'assets/imgs/email.png',
-                      ),
-                      const SizedBox(width: 0.0, height: 20.0),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const ContactMeText(
-                            text: 'Thank You',
+                  SizedBox(
+                    width: size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const ContactRow(
+                          desc: ' 0934686413',
+                          img: 'assets/imgs/whats.png',
+                        ),
+                        SizedBox(width: 0.0, height: 20.0.r),
+                        const ContactRow(
+                          isUrl: true,
+                          desc: 'linkedin.com/in/abdallah-al-hallak',
+                          img: 'assets/imgs/linkedin.png',
+                        ),
+                        SizedBox(width: 0.0, height: 20.0.r),
+                        const Align(
+                          alignment: Alignment.center,
+                          child: ContactRow(
+                            desc: 'abdallahalhallak1@gmail.com',
+                            img: 'assets/imgs/email.png',
                           ),
-                          Container(
-                            width: 250,
-                            height: 0.5,
-                            decoration:
-                                const BoxDecoration(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        SizedBox(width: 0.0, height: 20.0.r),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            const ContactMeText(
+                              text: 'Thank You',
+                            ),
+                            Container(
+                              width: 250.r,
+                              height: 0.5.r,
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -99,27 +108,33 @@ class _ContactRowState extends State<ContactRow> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SizedBox(
-      width: size.width / 4,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            widget.img,
-            width: 40,
-          ),
-          const SizedBox(width: 30.0, height: 0.0),
-          InkWell(
-            onTap: widget.isUrl!
-                ? () async {
-                    await _launchUrl();
-                  }
-                : null,
-            child: ContactMeText(
-              text: widget.desc,
+    return Center(
+      child: SizedBox(
+        width: size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              widget.img,
+              width: 40.r,
             ),
-          ),
-        ],
+            SizedBox(width: 25.0.r, height: 0.0),
+            InkWell(
+              onTap: widget.isUrl!
+                  ? () async {
+                      await _launchUrl();
+                    }
+                  : null,
+              child: Container(
+                constraints: BoxConstraints(minWidth: 280.r),
+                child: ContactMeText(
+                  text: widget.desc,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -133,7 +148,7 @@ class ContactMeText extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.start,
-      style: const TextStyle(color: Colors.white, fontSize: 20),
+      style: TextStyle(color: Colors.white, fontSize: 18.r),
     );
   }
 }
