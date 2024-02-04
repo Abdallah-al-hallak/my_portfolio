@@ -24,7 +24,7 @@ class _DesktopProjectsWidgetState extends State<DesktopProjectsWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.constraints.maxHeight,
+      height: widget.constraints.maxHeight + 200.r,
       width: widget.constraints.maxWidth,
       child: Column(
         children: [
@@ -38,27 +38,14 @@ class _DesktopProjectsWidgetState extends State<DesktopProjectsWidget> {
               ),
             ),
           ),
-          SizedBox(
-            height: widget.constraints.maxHeight / 1.1,
-            width: widget.constraints.maxWidth * .9,
+          Expanded(
             child: RawScrollbar(
               controller: _pageController,
-              isAlwaysShown: true,
               thumbColor: Colors.white,
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio:
-                        widget.constraints.maxWidth < 500 ? 1.3 : 0.8,
-                    crossAxisCount: widget.constraints.maxWidth < 500
-                        ? 1
-                        : widget.constraints.maxWidth < 750
-                            ? 2
-                            : widget.constraints.maxWidth < 1000
-                                ? 3
-                                : 4),
-                physics: widget.constraints.maxWidth < 1000
-                    ? const BouncingScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4),
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 itemCount: ProjectsData().project.length,
                 itemBuilder: (context, index) {
