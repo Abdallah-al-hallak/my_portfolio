@@ -48,6 +48,8 @@ dependencies:
   url_launcher: ^6.1.11
   flutter_svg: ^2.0.9
   flutter_screenutil: ^5.9.0
+  convex_bottom_bar: ^3.2.0
+  salomon_bottom_bar: ^3.3.2
 
   flutter_animate: ^3.1.0
 

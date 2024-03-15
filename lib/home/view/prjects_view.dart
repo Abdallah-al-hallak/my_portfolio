@@ -63,7 +63,7 @@ class _MobileProjectWidgetState extends State<MobileProjectWidget> {
               hoverColor: Colors.red,
               onTap: () {
                 _controller.previousPage(
-                    duration: Duration(milliseconds: 250),
+                    duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn);
               },
               child: const Icon(

@@ -7,6 +7,7 @@ import 'package:portfolio/home/blocs/projects_data_bloc/bloc/projects_data_bloc.
 import 'package:portfolio/home/blocs/scrolling_value/cubit/scrolling_value_cubit.dart';
 import 'package:portfolio/home/providers/selected_bar_providers.dart';
 import 'package:portfolio/home/view/prjects_view.dart';
+import 'package:portfolio/home/view/widgets/bottom_nav_widget.dart';
 import 'package:portfolio/home/widgets/projects_widgets/projects_widget.dart';
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
@@ -46,6 +47,11 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
       return Scaffold(
+        bottomNavigationBar: constraint.maxWidth < 550
+            ? BottomNavWidget(
+                scrollController: _scrollController,
+              )
+            : null,
         // drawer: constraint.maxWidth < 550 ? DrawerWidget() : null,
         backgroundColor: constraint.maxWidth < 550
             ? AppColors.dark
@@ -56,11 +62,6 @@ class _LandingPageState extends State<LandingPage> {
           slivers: [
             SliverAppBar(
               centerTitle: true,
-              title: constraint.maxWidth < 550
-                  ? Align(
-                      alignment: Alignment.center,
-                      child: SmallAppBar(scrollController: _scrollController))
-                  : null,
               backgroundColor: constraint.maxWidth < 550
                   ? AppColors.dark.withOpacity(0)
                   : AppColors.dark.withOpacity(0.6),
@@ -137,9 +138,10 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
               child: Text(
                 'Home',
                 style: isHomeHoverd
-                    ? TextStyle(color: Colors.yellow, fontSize: 9.5.r)
+                    ? TextStyle(
+                        color: Colors.yellow, fontSize: appBarSizeSelected.r)
                     : generalTextStyle(
-                        9.r,
+                        appBarSize,
                         selectedbar == SelectedBar.home
                             ? AppColors.yellow
                             : Colors.white),
@@ -164,10 +166,10 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
                 style: isAboutHoverd
                     ? TextStyle(
                         color: Colors.yellow,
-                        fontSize: 9.5.r,
+                        fontSize: appBarSizeSelected.r,
                       )
                     : generalTextStyle(
-                        9.r,
+                        appBarSize,
                         selectedbar == SelectedBar.about
                             ? AppColors.yellow
                             : Colors.white),
@@ -192,10 +194,10 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
                 style: isProjectsHoverd
                     ? TextStyle(
                         color: Colors.yellow,
-                        fontSize: 9.5.r,
+                        fontSize: appBarSizeSelected.r,
                       )
                     : generalTextStyle(
-                        9.r,
+                        appBarSize,
                         selectedbar == SelectedBar.projects
                             ? AppColors.yellow
                             : Colors.white),
@@ -220,10 +222,10 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
                 style: isSkillsHoverd
                     ? TextStyle(
                         color: Colors.yellow,
-                        fontSize: 9.5.r,
+                        fontSize: appBarSizeSelected.r,
                       )
                     : generalTextStyle(
-                        9.r,
+                        appBarSize,
                         selectedbar == SelectedBar.skills
                             ? AppColors.yellow
                             : Colors.white),
@@ -246,9 +248,10 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
               child: Text(
                 'Contact Me',
                 style: isContactHoverd
-                    ? TextStyle(color: Colors.yellow, fontSize: 9.5.r)
+                    ? TextStyle(
+                        color: Colors.yellow, fontSize: appBarSizeSelected.r)
                     : generalTextStyle(
-                        9.r,
+                        appBarSize,
                         selectedbar == SelectedBar.contact
                             ? AppColors.yellow
                             : Colors.white),
@@ -258,6 +261,9 @@ class _PinnedAppBarState extends ConsumerState<PinnedAppBar> {
         ]);
   }
 }
+
+double appBarSize = 9.5.r;
+double appBarSizeSelected = 10.r;
 
 enum SelectedBar {
   home,

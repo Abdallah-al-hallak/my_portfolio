@@ -16,12 +16,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return ProviderScope(
       child: MaterialApp(
-        builder: (ctx, child) {
-          ScreenUtil.init(ctx);
-          return const LandingPageView();
-        },
+        home: LandingPageView(),
+        // builder: (ctx, child) {
+
+        //   return const LandingPageView();
+        // },
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
