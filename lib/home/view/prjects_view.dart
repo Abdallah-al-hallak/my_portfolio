@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/data/project_data.dart';
+import 'package:portfolio/utils/styles.dart';
 
 import '../widgets/projects_widget_grid/projects_widget_grid.dart';
 
@@ -56,19 +57,38 @@ class _MobileProjectWidgetState extends State<MobileProjectWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: EdgeInsets.all(8.0.r),
+            child: Text(
+              'Projects I worked on',
+              style: generalTextStyleWithOnyx(35.r, Colors.white),
+            ),
+          ),
+        ),
+        SizedBox(width: 0.0, height: 25.0.r),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
-              hoverColor: Colors.red,
               onTap: () {
                 _controller.previousPage(
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn);
               },
-              child: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
+              child: SizedBox(
+                height: 250.r,
+                width: 40.r,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -85,14 +105,22 @@ class _MobileProjectWidgetState extends State<MobileProjectWidget> {
             ),
             InkWell(
               onTap: () {
-                print(_controller.page);
                 _controller.nextPage(
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn);
               },
-              child: const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
+              child: SizedBox(
+                height: 250.r,
+                width: 30.r,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

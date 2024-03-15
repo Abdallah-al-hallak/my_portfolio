@@ -65,59 +65,63 @@ class _AboutMeAnimationState extends State<AboutMeAnimation>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return SizeTransition(
-      axis: Axis.horizontal,
-      sizeFactor: containerSize,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8.r),
-        height: size.height - 200,
-        color: AppColors.snow,
-        alignment: Alignment.center,
-        child: AnimatedBuilder(
-          animation: _controller,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                constraints: BoxConstraints(
-                  maxWidth: size.width / 2.5,
-                ),
-                child: Text(
-                  'ABOUT ME',
-                  textAlign: TextAlign.center,
-                  style: generalTextStyleWithOnyx(85.r, Colors.black),
-                ),
-              ),
-              SizedBox(
-                width: 35.0.r,
-                height: 0.0,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0.r),
-                  child: Container(
-                    constraints: BoxConstraints(maxWidth: size.width / 1.5),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        '''Hi, I'm Abdallah. 3 years experience in flutter development, driven by passion for pixel Perfect.Computer Science from Damascus University, with notable achievements in a lot of projects.Committed to personal and professional growth, always seeking new challenges. ''',
-                        textAlign: TextAlign.start,
-                        style: generalTextStyle(16.r, Colors.black),
-                      ),
-                    ),
+    return LayoutBuilder(builder: (context, cons) {
+      return SizeTransition(
+        axis: Axis.horizontal,
+        sizeFactor: containerSize,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8.r),
+          height: size.height - 200,
+          color: AppColors.snow,
+          alignment: Alignment.center,
+          child: AnimatedBuilder(
+            animation: _controller,
+            child: cons.maxWidth > 550
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widgets)
+                : Column(
+                    children: widgets,
                   ),
-                ),
-              ),
-            ],
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(0, textOffset.value),
+                child: Opacity(opacity: textOpacity.value, child: child),
+              );
+            },
           ),
-          builder: (context, child) {
-            return Transform.translate(
-              offset: Offset(0, textOffset.value),
-              child: Opacity(opacity: textOpacity.value, child: child),
-            );
-          },
         ),
-      ),
-    );
+      );
+    });
   }
 }
+
+List<Widget> widgets = [
+  Container(
+    child: Text(
+      'ABOUT ME',
+      textAlign: TextAlign.center,
+      style: generalTextStyleWithOnyx(85.r, Colors.black),
+    ),
+  ),
+  SizedBox(
+    width: 35.0.r,
+    height: 0.0,
+  ),
+  Expanded(
+    child: Padding(
+      padding: EdgeInsets.all(16.0.r),
+      child: Container(
+        // constraints: BoxConstraints(maxWidth: size.width / 1.5),
+        child: SingleChildScrollView(
+          child: Text(
+            '''Hi, I'm Abdallah. 3 years experience in flutter development, driven by passion for pixel Perfect.Computer Science from Damascus University, with notable achievements in a lot of projects.Committed to personal and professional growth, always seeking new challenges. ''',
+            textAlign: TextAlign.start,
+            style: generalTextStyle(16.r, Colors.black),
+          ),
+        ),
+      ),
+    ),
+  ),
+];

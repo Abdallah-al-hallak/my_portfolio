@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:portfolio/animation/skills_animation_code.dart';
 import 'package:portfolio/utils/colors.dart';
@@ -53,12 +54,8 @@ class _SkillsWidgetState extends State<SkillsWidget> {
                             ),
                             child: Column(
                               children: [
-                                Text(
-                                  'What Skills Do I Have ?',
-                                  textAlign: TextAlign.center,
-                                  style: generalTextStyleWithOnyx(
-                                      80.0, widget.code.textColor.value),
-                                ),
+                                QuestionWidget(
+                                    color: widget.code.textColor.value),
                                 child!,
                               ],
                             ));
@@ -128,6 +125,24 @@ class _SkillsWidgetState extends State<SkillsWidget> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class QuestionWidget extends StatefulWidget {
+  const QuestionWidget({super.key, required this.color});
+  final Color? color;
+  @override
+  State<QuestionWidget> createState() => _QuestionWidgetState();
+}
+
+class _QuestionWidgetState extends State<QuestionWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'What Skills Do I Have ?',
+      textAlign: TextAlign.center,
+      style: generalTextStyleWithOnyx(65.0.r, widget.color),
     );
   }
 }
@@ -215,18 +230,18 @@ class SkillsWidgetCirclesScaled extends StatelessWidget {
           return SkillsCircleWrapper(
             intervalStart: index / 5,
             child: Container(
-              width: 40,
-              height: 40,
+              width: 40.r,
+              height: 40.r,
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColors.snow,
               ),
               child: SizedBox(
-                width: 30,
+                width: 40.r,
                 child: Image.asset(
                   g.skillPhoto,
-                  width: 30,
+                  width: 40.r,
                 ),
               ),
             ),
