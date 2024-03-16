@@ -35,93 +35,42 @@ class _SkillsWidgetState extends State<SkillsWidget> {
     var height = MediaQuery.of(context).size;
     return Container(
       color: AppColors.dark,
-      height: height.height,
-      child: Row(
+      height: height.height * 1.7,
+      child: Column(
         children: [
-          Expanded(
-              flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AnimatedBuilder(
-                      animation: widget.controller2,
-                      child: const SkillsWidgetCirclesScaled(),
-                      builder: (context, child) {
-                        return Container(
-                            alignment: Alignment.center,
-                            constraints: const BoxConstraints(
-                              maxWidth: 275,
-                            ),
-                            child: Column(
-                              children: [
-                                QuestionWidget(
-                                    color: widget.code.textColor.value),
-                                child!,
-                              ],
-                            ));
-                      }),
-                ],
-              )),
-          Expanded(
-            flex: 3,
-            child: AnimatedBuilder(
-              animation:
-                  Listenable.merge([widget.controller, widget.controller2]),
+          AnimatedBuilder(
+              animation: widget.controller2,
+              child: const SkillsWidgetCirclesScaled(),
               builder: (context, child) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: widget.code.whiteContainer.value,
-                      height: widget.code.whiteContainer.value,
-                      decoration: BoxDecoration(
-                        color: AppColors.dark,
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 40,
-                            color: AppColors.snow,
-                            blurStyle: BlurStyle.outer,
-                          ),
-                        ],
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 62,
+                return Container(
+                    alignment: Alignment.center,
+                    constraints: const BoxConstraints(
+                      maxWidth: 275,
+                    ),
+                    child: Column(
+                      children: [
+                        QuestionWidget(
+                          color: widget.code.textColor.value,
                         ),
-                      ),
-                    ),
-                    Opacity(
-                      opacity: widget.code.opacityYellowContainer.value,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 500,
-                        height: 500,
-                        decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 35,
-                              color: AppColors.yellow,
-                              blurStyle: BlurStyle.outer,
-                            ),
-                          ],
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: AppColors.yellow1,
-                            width: 62,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 800,
-                      height: 800,
-                      child: Image.asset('assets/imgs/abdul.png'),
-                    ),
-                  ],
-                );
-              },
-            ),
+                        child!,
+                      ],
+                    ));
+              }),
+          SizedBox(width: 0.0, height: 15.0.r),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                  flex: 2,
+                  child: RelativeSkillsWidget(
+                    color: widget.code.textColor.value,
+                  )),
+              CirclePictureWidget(
+                code: widget.code,
+                controller2: widget.controller2,
+                controller: widget.controller,
+              )
+            ],
           ),
         ],
       ),
@@ -143,6 +92,86 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       'What Skills Do I Have ?',
       textAlign: TextAlign.center,
       style: generalTextStyleWithOnyx(65.0.r, widget.color),
+    );
+  }
+}
+
+class CirclePictureWidget extends StatefulWidget {
+  const CirclePictureWidget(
+      {super.key,
+      required this.code,
+      required this.controller,
+      required this.controller2});
+  final SkillsAnimationCode code;
+  final AnimationController controller;
+  final AnimationController controller2;
+  @override
+  State<CirclePictureWidget> createState() => _CirclePictureWidgetState();
+}
+
+class _CirclePictureWidgetState extends State<CirclePictureWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 3,
+      child: AnimatedBuilder(
+        animation: Listenable.merge([widget.controller, widget.controller2]),
+        builder: (context, child) {
+          return Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                width: widget.code.whiteContainer.value,
+                height: widget.code.whiteContainer.value,
+                decoration: BoxDecoration(
+                  color: AppColors.dark,
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 40,
+                      color: AppColors.snow,
+                      blurStyle: BlurStyle.outer,
+                    ),
+                  ],
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 62,
+                  ),
+                ),
+              ),
+              Opacity(
+                opacity: widget.code.opacityYellowContainer.value,
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  width: 500,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                        blurRadius: 35,
+                        color: AppColors.yellow,
+                        blurStyle: BlurStyle.outer,
+                      ),
+                    ],
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColors.yellow1,
+                      width: 62,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 800,
+                height: 800,
+                child: Image.asset('assets/imgs/abdul.png',
+                    alignment: Alignment.topCenter),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -218,8 +247,9 @@ class SkillsWidgetCirclesScaled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 190.r,
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         clipBehavior: Clip.hardEdge,
         itemCount: SkillsCirclesData.list.length,
         itemBuilder: (
@@ -229,31 +259,111 @@ class SkillsWidgetCirclesScaled extends StatelessWidget {
           var g = SkillsCirclesData.list[index];
           return SkillsCircleWrapper(
             intervalStart: index / 5,
-            child: Container(
-              width: 40.r,
-              height: 40.r,
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.snow,
-              ),
-              child: SizedBox(
-                width: 40.r,
-                child: Image.asset(
-                  g.skillPhoto,
-                  width: 40.r,
+            child: Column(
+              children: [
+                Container(
+                  width: 55.r,
+                  height: 55.r,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.snow,
+                  ),
+                  child: SizedBox(
+                    width: 50.r,
+                    child: Image.asset(
+                      g.skillPhoto,
+                      width: 40.r,
+                    ),
+                  ),
                 ),
-              ),
+                Text(
+                  g.skillName,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
             ),
           );
         },
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-            childAspectRatio: 1.5),
+            crossAxisSpacing: 10.r,
+            mainAxisSpacing: 12.r,
+            childAspectRatio: 1),
       ),
     );
+  }
+}
+
+class RelativeSkillsWidget extends StatelessWidget {
+  const RelativeSkillsWidget({super.key, required this.color});
+  final Color? color;
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraint) {
+      double fontSize = constraint.maxWidth > 500 ? 20.r : 15.r;
+      var style = TextStyle(color: Colors.white, fontSize: fontSize);
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.r),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Relative Skills:',
+              textAlign: TextAlign.center,
+              style: generalTextStyleWithOnyx(35.0.r, color),
+            ),
+            Text(
+              ' - Advanced Dart Programming',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' - Custom UI/UX design with flutter',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' - State management(Bloc, Provider, riverpod)',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' - RESTFul and GraphQL API Integration',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' - Unit, widget and integration test',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' - CI/CD with Codemagic and microsoft AZURE',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' Version control with Git',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+            SizedBox(width: 0.0, height: 5.0.r),
+            Text(
+              ' Agile development methodologies',
+              textAlign: TextAlign.center,
+              style: style,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -272,12 +382,15 @@ class SkillsCircleModel extends Equatable {
 class SkillsCirclesData {
   static List<SkillsCircleModel> list = const [
     SkillsCircleModel(
-        skillPhoto: 'assets/imgs/django.png', skillName: 'django'),
+        skillPhoto: 'assets/imgs/flutter.png', skillName: 'Flutter'),
+    SkillsCircleModel(skillPhoto: 'assets/imgs/sql.png', skillName: 'SQL'),
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/firebase.png', skillName: 'FireBase'),
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/nodejs.png', skillName: 'NestJs'),
+    SkillsCircleModel(
+        skillPhoto: 'assets/imgs/postgresql.png', skillName: 'postgreSQL'),
     SkillsCircleModel(
         skillPhoto: 'assets/imgs/docker.png', skillName: 'docker'),
-    SkillsCircleModel(
-        skillPhoto: 'assets/imgs/flutter.png', skillName: 'flutter'),
-    SkillsCircleModel(
-        skillPhoto: 'assets/imgs/nodejs.png', skillName: 'nodejs'),
   ];
 }

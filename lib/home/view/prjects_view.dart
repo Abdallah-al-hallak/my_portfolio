@@ -92,7 +92,7 @@ class _MobileProjectWidgetState extends State<MobileProjectWidget> {
               ),
             ),
             SizedBox(
-              width: 300.r,
+              width: 285.r,
               height: 350.r,
               child: PageView.builder(
                 controller: _controller,
@@ -111,7 +111,7 @@ class _MobileProjectWidgetState extends State<MobileProjectWidget> {
               },
               child: SizedBox(
                 height: 250.r,
-                width: 30.r,
+                width: 40.r,
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/data/model/projects_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/project_data.dart';
 import '../../../utils/styles.dart';
@@ -137,8 +138,11 @@ class IconWidget extends StatelessWidget {
       children: [
         if (model.photo2.isNotEmpty)
           InkWell(
-            onTap: () {
-              if (model.googleLink.isNotEmpty) {}
+            onTap: () async {
+              if (model.googleLink.isNotEmpty) {
+                final Uri _url = Uri.parse(model.googleLink);
+                await launchUrl(_url);
+              }
             },
             child: SizedBox(
               width: 30.r,
@@ -148,7 +152,12 @@ class IconWidget extends StatelessWidget {
           ),
         if (model.photo3.isNotEmpty)
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              if (model.storeLink.isNotEmpty) {
+                final Uri _url = Uri.parse(model.storeLink);
+                await launchUrl(_url);
+              }
+            },
             child: SizedBox(
               width: 35.r,
               height: 35.r,

@@ -5,11 +5,12 @@ class ProjectsData {
     const ProjectsModel(
       projectName: 'Asl',
       description:
-          'POS system app Linked with asl website for managing the work of sailing, prints vouchers and shifts, works offline and online. integrated with giedia Payments to pay with your card. ',
+          'This project involves developing a POS (Point of Sale) system application that integrates with an ASL website to streamline sales management. It facilitates voucher printing and shift management, offering both online and offline functionality. Additionally, the app is integrated with Giedia Payments, allowing users to make payments using their cards. ',
       photo1: 'assets/projects/asl.png',
       photo2: 'assets/imgs/google.svg',
-      photo3: 'assets/imgs/appstore.svg',
-      googleLink: '',
+      photo3: '',
+      googleLink:
+          'https://play.google.com/store/apps/details?id=com.asal_mobile',
       storeLink: '',
     ),
     const ProjectsModel(
@@ -19,7 +20,7 @@ class ProjectsData {
       photo1: 'assets/projects/etlooblogo.png',
       photo2: 'assets/imgs/google.svg',
       photo3: 'assets/imgs/appstore.svg',
-      googleLink: '',
+      googleLink: 'https://play.google.com/store/apps/details?id=com.etloob',
       storeLink: '',
     ),
     const ProjectsModel(
@@ -29,7 +30,8 @@ class ProjectsData {
       photo1: 'assets/projects/appLogo1024.png',
       photo2: 'assets/imgs/google.svg',
       photo3: 'assets/imgs/appstore.svg',
-      googleLink: '',
+      googleLink:
+          'https://play.google.com/store/apps/details?id=com.etloob.vendor',
       storeLink: '',
     ),
     const ProjectsModel(
@@ -39,7 +41,8 @@ class ProjectsData {
       photo1: 'assets/projects/crs.png',
       photo2: 'assets/imgs/google.svg',
       photo3: '',
-      googleLink: '',
+      googleLink:
+          'https://play.google.com/store/apps/details?id=com.carmaintenance.car',
       storeLink: '',
     ),
     const ProjectsModel(
@@ -52,15 +55,15 @@ class ProjectsData {
       googleLink: '',
       storeLink: '',
     ),
-    const ProjectsModel(
-      projectName: 'GSS',
-      description:
-          'Gas Station app. this app helps the owner of gas station to see the how much oil left in the pumps, also give reports. ',
-      photo1: 'assets/projects/etloob.png',
-      photo2: 'assets/imgs/gss2.jpg',
-      photo3: 'assets/imgs/gss3.jpg',
-      googleLink: '',
-      storeLink: '',
-    ),
+    // const ProjectsModel(
+    //   projectName: 'GSS',
+    //   description:
+    //       'Gas Station app. this app helps the owner of gas station to see the how much oil left in the pumps, also give reports. ',
+    //   photo1: 'assets/projects/etloob.png',
+    //   photo2: 'assets/imgs/gss2.jpg',
+    //   photo3: 'assets/imgs/gss3.jpg',
+    //   googleLink: '',
+    //   storeLink: '',
+    // ),
   ];
 }

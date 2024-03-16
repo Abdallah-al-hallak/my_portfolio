@@ -47,6 +47,25 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
       return Scaffold(
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              backgroundColor: Colors.yellow.shade200,
+              onPressed: () {},
+              child: Text('CV'),
+            ),
+            SizedBox(width: 0.0, height: 10.0.r),
+            FloatingActionButton(
+              backgroundColor: Colors.red.shade200,
+              onPressed: () {},
+              child: const Text(
+                'Hire Me',
+                style: TextStyle(color: Colors.black87),
+              ),
+            ),
+          ],
+        ),
         bottomNavigationBar: constraint.maxWidth < 550
             ? BottomNavWidget(
                 scrollController: _scrollController,
